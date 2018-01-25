@@ -12,4 +12,5 @@ module "backend" {
   source = "./modules/backend"
 
   bootstrap = "${terraform.workspace == "default" ? 1 : 0}"
+  operators = "${var.aws_operators}"
 }

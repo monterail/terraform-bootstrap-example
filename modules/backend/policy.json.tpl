@@ -6,9 +6,7 @@
       "Action": "s3:ListBucket",
       "Resource": "arn:aws:s3:::BUCKET_NAME",
       "Principal": {
-        "AWS": [
-          "arn:aws:iam::0123456:user/john.nowak"
-        ]
+        "AWS": [${operators}]
       }
     },
     {
@@ -16,9 +14,7 @@
       "Action": ["s3:GetObject", "s3:PutObject"],
       "Resource": "arn:aws:s3:::BUCKET_NAME/terraform.tfstate",
       "Principal": {
-        "AWS": [
-          "arn:aws:iam::0123456:user/john.nowak"
-        ]
+        "AWS": [${operators}]
       }
     }
   ]

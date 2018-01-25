@@ -14,7 +14,6 @@ resource "aws_s3_bucket" "terraform_state" {
 
   bucket = "BUCKET_NAME"
   acl = "private"
-  policy = "${file("./modules/backend/policy.json")}"
 
   versioning {
     enabled = true
@@ -41,6 +40,13 @@ resource "aws_s3_bucket" "terraform_state" {
   tags {
     Name = "terraform"
   }
+}
+
+resource "aws_s3_bucket_policy" "terraform_state" {
+  count = "${var.bootstrap}"
+
+  bucket = "${aws_s3_bucket.terraform_state.id}"
+  policy = "${data.template_file.terraform_state_policy.rendered}"
 }
 
 resource "aws_dynamodb_table" "terraform_statelock" {
