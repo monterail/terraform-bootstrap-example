@@ -4,5 +4,5 @@ variable "bootstrap" {
 
 variable "operators" {
   description = "List of AWS usernames with access to Terraform state bucket"
-  type = "list"
+  type        = "list"
 }

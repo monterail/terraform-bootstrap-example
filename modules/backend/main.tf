@@ -1,7 +1,7 @@
 resource "aws_kms_key" "tf_enc_key" {
   count = "${var.bootstrap}"
 
-  description = "Global Terraform state encryption key"
+  description             = "Global Terraform state encryption key"
   deletion_window_in_days = 30
 
   tags {
@@ -13,14 +13,14 @@ resource "aws_s3_bucket" "terraform_state" {
   count = "${var.bootstrap}"
 
   bucket = "BUCKET_NAME"
-  acl = "private"
+  acl    = "private"
 
   versioning {
     enabled = true
   }
 
   lifecycle_rule {
-    id = "expire"
+    id      = "expire"
     enabled = true
 
     noncurrent_version_expiration {
@@ -52,10 +52,10 @@ resource "aws_s3_bucket_policy" "terraform_state" {
 resource "aws_dynamodb_table" "terraform_statelock" {
   count = "${var.bootstrap}"
 
-  name = "TerraformStatelock"
-  read_capacity = 1
+  name           = "TerraformStatelock"
+  read_capacity  = 1
   write_capacity = 1
-  hash_key = "LockID"
+  hash_key       = "LockID"
 
   attribute {
     name = "LockID"

@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
-    bucket = "BUCKET_NAME"
+    bucket         = "BUCKET_NAME"
     dynamodb_table = "TerraformStatelock"
-    key    = "terraform.tfstate"
-    region = "us-west-2"
-    profile = "terraform"
+    key            = "terraform.tfstate"
+    region         = "us-west-2"
+    profile        = "terraform"
   }
 }
 
