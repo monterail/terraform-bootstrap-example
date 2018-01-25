@@ -4,7 +4,7 @@
     {
       "Effect": "Allow",
       "Action": "s3:ListBucket",
-      "Resource": "arn:aws:s3:::BUCKET_NAME",
+      "Resource": "${bucket}",
       "Principal": {
         "AWS": [${operators}]
       }
@@ -12,7 +12,7 @@
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::BUCKET_NAME/terraform.tfstate",
+      "Resource": "${bucket}/terraform.tfstate",
       "Principal": {
         "AWS": [${operators}]
       }

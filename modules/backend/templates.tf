@@ -17,6 +17,7 @@ data "template_file" "terraform_state_policy" {
   template = "${file("${path.module}/policy.json.tpl")}"
 
   vars {
+    bucket = "${aws_s3_bucket.terraform_state.arn}"
     operators = "${join(",", data.template_file.operator_arn.*.rendered)}"
   }
 }
