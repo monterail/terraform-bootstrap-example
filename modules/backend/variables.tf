@@ -1,8 +1,10 @@
 variable "bootstrap" {
   description = "Whether bootstrap basic infra or not"
+
+  default = 0
 }
 
-variable "operators" {
-  description = "List of AWS usernames with access to Terraform state bucket"
-  type        = "list"
-}
+variable "operators" {}
+variable "bucket" {}
+variable "key" {}
+variable "dynamodb_table" {}

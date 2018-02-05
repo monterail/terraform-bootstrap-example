@@ -12,7 +12,7 @@
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "${bucket}/terraform.tfstate",
+      "Resource": "${bucket}/${key}",
       "Principal": {
         "AWS": [${operators}]
       }
@@ -20,7 +20,7 @@
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "${bucket}/env:/*/terraform.tfstate",
+      "Resource": "${bucket}/env:/*/${key}",
       "Principal": {
         "AWS": [${operators}]
       }
