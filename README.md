@@ -10,7 +10,7 @@ Example solution for :egg: vs :chicken: problem - how to create infrastructure f
 
 ## Development
 
-Before applying you should update `modules/backend/policy.json` to your needs and update backend bucket name in the `policy.json`, `modules/backend/main.tf` and in the main `backend.tf`.
+Before applying you should update `aws_operators.auto.tfvars` with operators AWS usernames and update backend bucket name in the `modules/backend/main.tf` and in the main `backend.tf`.
 
 If you want to use workspaces per environment (as we and [Hashicorp recommends](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#one-workspace-per-environment-per-terraform-configuration)) it might be convenient to leave `default` for backend infrastructure only.
 
