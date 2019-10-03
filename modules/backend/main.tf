@@ -1,12 +1,11 @@
 # KMS Key
 
 resource "aws_kms_key" "tf_enc_key" {
-  count = "${var.bootstrap}"
 
   description             = "Global Terraform state encryption key"
   deletion_window_in_days = 30
 
-  tags {
+  tags = {
     Origin = "Terraform"
   }
 }
@@ -14,7 +13,6 @@ resource "aws_kms_key" "tf_enc_key" {
 # S3 Bucket
 
 resource "aws_s3_bucket" "terraform_state" {
-  count = "${var.bootstrap}"
 
   bucket = "${var.bucket}"
   acl    = "private"
@@ -58,7 +56,7 @@ data "template_file" "operator_arn" {
   count    = "${length(var.operators)}"
   template = "\"$${arn}\""
 
-  vars {
+  vars = {
     arn = "${element(data.aws_iam_user.operators.*.arn, count.index)}"
   }
 }
@@ -66,7 +64,7 @@ data "template_file" "operator_arn" {
 data "template_file" "terraform_state_policy" {
   template = "${file("${path.module}/templates/policy.json.tpl")}"
 
-  vars {
+  vars = {
     bucket    = "${aws_s3_bucket.terraform_state.arn}"
     key       = "${var.key}"
     operators = "${join(",", data.template_file.operator_arn.*.rendered)}"
@@ -74,7 +72,6 @@ data "template_file" "terraform_state_policy" {
 }
 
 resource "aws_s3_bucket_policy" "terraform_state" {
-  count = "${var.bootstrap}"
 
   bucket = "${aws_s3_bucket.terraform_state.id}"
   policy = "${data.template_file.terraform_state_policy.rendered}"
@@ -95,7 +92,7 @@ resource "aws_dynamodb_table" "terraform_statelock" {
     type = "S"
   }
 
-  tags {
+  tags = {
     Origin = "Terraform"
   }
 }
