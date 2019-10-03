@@ -4,7 +4,7 @@ Example solution for :egg: vs :chicken: problem - how to create infrastructure f
 
 ## Assumptions
 
-* [Terraform](https://www.terraform.io/) installed (approach tested against `v0.11.2`)
+* [Terraform](https://www.terraform.io/) installed (approach tested against `v0.12.9`)
 * [AWS S3 backend](https://www.terraform.io/docs/backends/types/s3.html) with DynamoDB table for locking will be used
 * operator should have [AWS credentials in profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html) - for the purpose of this repo we use `terraform` profile
 * backend will be created and maintained under `base` workspace
@@ -22,7 +22,6 @@ When you run `setup.sh` the script will create required S3 bucket and DynamoDB t
 ## Problems not solved
 
 * AWS S3 policies doesn't support groups so each operator must be added explicit to the policy file
-* `-backend=false` doesn't work, so "hack" with separated `setup` directory must be used to run Terraform without S3 backend
 
 ## Questions and/or suggestions
 
