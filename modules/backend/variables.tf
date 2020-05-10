@@ -5,7 +5,7 @@ variable "bootstrap" {
 }
 
 variable "operators" {
-  type = "list"
+  type = list
 }
 
 variable "bucket" {}

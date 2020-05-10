@@ -14,7 +14,7 @@ resource "aws_kms_key" "tf_enc_key" {
 
 resource "aws_s3_bucket" "terraform_state" {
 
-  bucket = "${var.bucket}"
+  bucket = var.bucket
   acl    = "private"
 
   versioning {
@@ -33,13 +33,13 @@ resource "aws_s3_bucket" "terraform_state" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = "${aws_kms_key.tf_enc_key.arn}"
+        kms_master_key_id = aws_kms_key.tf_enc_key.arn
         sse_algorithm     = "aws:kms"
       }
     }
   }
 
-  tags {
+  tags = {
     Origin = "Terraform"
   }
 }
@@ -49,7 +49,7 @@ resource "aws_s3_bucket" "terraform_state" {
 data "aws_iam_user" "operators" {
   count = "${length(var.operators)}"
 
-  user_name = "${var.operators[count.index]}"
+  user_name = var.operators[count.index]
 }
 
 data "template_file" "operator_arn" {
@@ -65,24 +65,24 @@ data "template_file" "terraform_state_policy" {
   template = "${file("${path.module}/templates/policy.json.tpl")}"
 
   vars = {
-    bucket    = "${aws_s3_bucket.terraform_state.arn}"
-    key       = "${var.key}"
+    bucket    = aws_s3_bucket.terraform_state.arn
+    key       = var.key
     operators = "${join(",", data.template_file.operator_arn.*.rendered)}"
   }
 }
 
 resource "aws_s3_bucket_policy" "terraform_state" {
 
-  bucket = "${aws_s3_bucket.terraform_state.id}"
-  policy = "${data.template_file.terraform_state_policy.rendered}"
+  bucket = aws_s3_bucket.terraform_state.id
+  policy = data.template_file.terraform_state_policy.rendered
 }
 
 # DynamoDB
 
 resource "aws_dynamodb_table" "terraform_statelock" {
-  count = "${var.bootstrap}"
+  count = var.bootstrap
 
-  name           = "${var.dynamodb_table}"
+  name           = var.dynamodb_table
   read_capacity  = 1
   write_capacity = 1
   hash_key       = "LockID"

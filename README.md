@@ -4,7 +4,7 @@ Example solution for :egg: vs :chicken: problem - how to create infrastructure f
 
 ## Assumptions
 
-* [Terraform](https://www.terraform.io/) installed (approach tested against `v0.12.9`)
+* [Terraform](https://www.terraform.io/) installed (approach tested against `v0.12.24`)
 * [AWS S3 backend](https://www.terraform.io/docs/backends/types/s3.html) with DynamoDB table for locking will be used
 * operator should have [AWS credentials in profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html) - for the purpose of this repo we use `terraform` profile
 * backend will be created and maintained under `base` workspace
