@@ -75,6 +75,7 @@ resource "aws_s3_bucket_policy" "terraform_state" {
 
   bucket = aws_s3_bucket.terraform_state.id
   policy = data.template_file.terraform_state_policy.rendered
+  count = "${length(var.operators) > 0 ? 1 : 0 }"
 }
 
 # DynamoDB
