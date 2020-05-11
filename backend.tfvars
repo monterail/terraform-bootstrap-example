@@ -1,4 +1,4 @@
-bucket = "my-terraform-bucket"
+bucket = "my-terraform-bucket" # Needs to be globally unique
 dynamodb_table = "TerraformStatelock"
 key = "terraform.tfstate"
 profile = "terraform"

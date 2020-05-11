@@ -1,7 +1,6 @@
 locals {
   operators = [
-    "john.blacksmith",
-    "kate.snow"
+    # Put any local operator IAM user names here
   ]
 }
 
